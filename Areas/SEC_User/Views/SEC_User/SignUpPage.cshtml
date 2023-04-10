@@ -1,0 +1,132 @@
+﻿@{
+    ViewData["Title"] = "Login Page";
+}
+
+@model Artefy.Areas.SEC_User.Models.SEC_UserModel
+
+<section class="h-100 h-custom" style="background-color: #8fc4b7;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-8 col-xl-6">
+                <div class="card rounded-3">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp"
+                         class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;"
+                         alt="Sample photo">
+                    <div class="card-body p-4 p-md-5">
+                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Registration Info</h3>
+
+                        <form class="px-md-2" asp-area="User" asp-controller="User" asp-action="Save">
+
+                            <div class="form-outline mb-4">
+                                <select class="form-label" asp-for="RoleTypeID" asp-items="@(new SelectList(ViewBag.RoleTypeList,"RoleTypeID","RoleTypeName"))">
+                                    <option value="">Select RoleType</option>
+                                </select>
+                                <span asp-validation-for="RoleTypeID" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <input type="file" asp-for="File" class="form-control" />
+                                <label class="form-label" for="form3Example1q">Profile Pic</label>
+                                <span asp-validation-for="ProfilePic" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <input type="text" asp-for="UserName" class="form-control" />
+                                <label class="form-label" for="form3Example1q">User Name</label>
+                                <span asp-validation-for="UserName" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <input type="password" asp-for="Password" class="form-control" />
+                                <label class="form-label" for="form3Example1q">Password</label>
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <input type="date" asp-for="BirthDate" class="form-control" />
+                                <label class="form-label" for="form3Example1q">BirthDate</label>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <textarea rows="4" cols="50" class="form-label" asp-for="Address" placeholder="Enter Address"></textarea>
+                                <span asp-validation-for="Address" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <select class="form-label" asp-for="CountryID" asp-items="@(new SelectList(ViewBag.CountryList,"CountryID","CountryName"))">
+                                    <option value="">Select Country</option>
+                                </select>
+                                <span asp-validation-for="CountryID" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <select class="form-label" asp-for="StateID" asp-items="@(new SelectList(ViewBag.StateList,"StateID","StateName"))">
+                                    <option value="">Select State</option>
+                                </select>
+                                <span asp-validation-for="StateID" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <select class="form-label" asp-for="CityID" asp-items="@(new SelectList(ViewBag.CityList,"CityID","CityName"))">
+                                    <option value="">Select State</option>
+                                </select>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+
+                                    <div class="form-outline">
+                                        <input type="text" asp-for="Phone" class="form-control" />
+                                        <label for="form3Example1q" class="form-label">Phone</label>
+                                        <span asp-validation-for="Phone" class="text-danger"></span>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6 mb-4">
+
+                                    <select class="select" asp-for="Gender">
+                                        <option value="1" disabled>Gender</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                    <span asp-validation-for="Gender" class="text-danger"></span>
+
+                                </div>
+                            </div>
+
+                            
+
+                            <div class="row mb-4 pb-2 pb-md-0 mb-md-5">
+                                <div class="col-md-6">
+
+                                    <div class="form-outline">
+                                        <input type="email" asp-for="Email" class="form-control" />
+                                        <label class="form-label" for="form3Example1w">Email</label>
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-success btn-lg mb-1">Submit</button>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    @section Scripts
+        {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+        }
+    </script>
+

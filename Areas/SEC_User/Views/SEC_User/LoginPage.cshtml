@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = "Login Page";
+    Layout = "~/Views/Shared/_Layout_Login.cshtml";
+}
+
+@model Artefy.Areas.SEC_User.Models.SEC_UserModel
+
+
+<form method="post" asp-area="SEC_User" asp-controller="SEC_User" asp-action="Login">
+
+    <div class="card">
+       
+        <div class="form">
+            <h3>Login</h3>
+
+            @if(TempData["Error"] != null)
+            {
+                <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
+                    <p class="lead fw-normal mb-0 me-3 text-danger">@Html.Raw(TempData["Error"])</p>
+                </div>
+            }
+
+            <span asp-validation-for="UserName" class="text-danger"></span>
+            <div class="input-field">
+                <i class="fa fa-envelope"></i>
+                <input type="text" asp-for="UserName" placeholder="Enter your UserName">
+            </div>
+
+            <span asp-validation-for="Password" class="text-danger"></span>
+            <div class="input-field">
+                <i class="fa fa-lock"></i>
+                <input asp-for="Password" type="password" placeholder="Enter your password">
+            </div>
+
+            <a href="#">Forgot password?</a>
+            <button type="submit">Login</button>
+            <p>Don't have an account? <a asp-area="SEC_User" asp-controller="SEC_User" asp-action="OpenSignUp">Signup now</a></p>
+        </div>
+
+        <div class="image">
+            <div class="overlay">
+                <h3>Every new friend is a<br>new adventure</h3>
+                <p>let's get connected</p>
+            </div>
+        </div>
+
+    </div>
+
+</form>
+
+
+<script>
+    @section Scripts
+        {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+        }
+</script>

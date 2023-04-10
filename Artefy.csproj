@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="Areas\SEC_User\Views\SEC_User\SignUpPage.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\ArtSubType\Data\" />
+    <Folder Include="Areas\ArtType\Data\" />
+    <Folder Include="Areas\ArtWork\Data\" />
+    <Folder Include="Areas\City\Data\" />
+    <Folder Include="Areas\Country\Data\" />
+    <Folder Include="Areas\Order\Controllers\" />
+    <Folder Include="Areas\Order\Data\" />
+    <Folder Include="Areas\Order\Models\" />
+    <Folder Include="Areas\Order\Views\" />
+    <Folder Include="Areas\PaymentMode\Data\" />
+    <Folder Include="Areas\RoleType\Data\" />
+    <Folder Include="Areas\SEC_User\Data\" />
+    <Folder Include="Areas\State\Data\" />
+    <Folder Include="Areas\User\Data\" />
+    <Folder Include="wwwroot\ProfilePic\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EnterpriseLibrary.Data.NetCore" Version="6.3.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.13" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Areas\SEC_User\Views\SEC_User\SignUpPage.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Areas\SEC_User\Views\SEC_User\SignUpPage.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Areas\SEC_User\Views\SEC_User\SignUpPage.cshtml" />
+  </ItemGroup>
+
+</Project>

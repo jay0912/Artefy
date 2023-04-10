@@ -1,0 +1,173 @@
+﻿@using Artefy.BAL
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- Default link starts -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Artefy</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Artefy.styles.css" asp-append-version="true" />
+    <!-- Default link ends -->
+
+    <!--Theme Links-->
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
+          rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="~/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="~/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/style.css" type="text/css">
+    <!--End Links-->
+
+</head>
+<body>
+
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3">
+                    <div class="header__logo">
+                        <a asp-controller="Home" asp-action="Index"><h3>Artefy</h3></a>
+                        <!-- <a href="./index.html"><img src="img/logo.png" alt=""></a> -->
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <nav class="header__menu mobile-menu">
+                        <ul>
+                            <li class="active"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                            
+                            <li>
+                                <a href="#">Add</a>
+                                <ul class="dropdown">
+                                    <li><a href="#">ART</a></li>
+                                    <li><a href="#">ARTIST</a></li>
+                                    <li><a href="#">TYPS</a></li>
+                                    <li><a href="#">Country</a></li>
+                                    <li><a href="#">State</a></li>
+                                    <li><a href="#">City</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">ArtWork</a></li>
+                            <li><a href="#">Artist</a></li>
+
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3 col-md-3">
+                    <div class="header__nav__option">
+                        <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
+                        @*<a href="#"><img src="img/icon/heart.png" alt=""></a>*@
+                        <a href="#"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
+                        <div class="price">$0.00</div>
+                        <a class="btn btn-dark" asp-area="Admin" asp-controller="Admin" asp-action="Index">Admin</a>
+                        @if(CV.UserID() != null && CV.RoleTypeID() != "1")
+                        {
+                            <a class="btn btn-dark" href="@Url.Action("Logout", "SEC_User", new {Area = "SEC_User" })">
+                                    <i class="icon-key"></i> Log Out
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="canvas__open"><i class="fa fa-bars"></i></div>
+        </div>
+    </header>
+    <!-- Header Section End -->
+
+
+    <!--Render body-->
+    <div class="">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <!--End-->
+
+    <!-- Footer Section Begin -->
+    <footer class="footer" style="position: relative;
+   bottom: 0; ">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer__about">
+                        <div class="footer__logo">
+                            <a href="#"><h3 class="py-5" style="color: white;">Artefy</h3></a>
+                        </div>
+                        <p>The customer is at the heart of our <br />unique business model, which includes design.</p>
+                        <a href="#"><img src="img/payment.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
+                    <div class="footer__widget py-5" >
+                        <h6>Links</h6>
+                        <ul>
+                            <li><a href="#">ArtWork</a></li>
+                            <li><a href="#">Artist</a></li>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-6">
+                    <div class="footer__widget py-5">
+                        <h6>Shopping</h6>
+                        <ul>
+                            <li><a href="#">Paintings</a></li>
+                            <li><a href="#">Scluptures</a></li>
+                            <li><a href="#">Photography</a></li>
+                            <li><a href="#">Category</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 offset-lg-1 col-md-6 col-sm-6">
+                    <div class="footer__widget py-5">
+                        <h6>NewLetter</h6>
+                        <div class="footer__newslatter">
+                            <p>Be the first to know about <br /> new arrivals, look books, sales & promos!</p>
+                            <form action="#">
+                                <input type="text" placeholder="Your email">
+                                <button type="submit"><span class="icon_mail_alt"></span></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+
+
+    <!-- default link starts -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- default link ends -->
+
+    <!--Theme Links-->
+    <!-- Js Plugins -->
+    <script src="~/js/jquery-3.3.1.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/jquery.nice-select.min.js"></script>
+    <script src="~/js/jquery.nicescroll.min.js"></script>
+    <script src="~/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/js/jquery.countdown.min.js"></script>
+    <script src="~/js/jquery.slicknav.js"></script>
+    <script src="~/js/mixitup.min.js"></script>
+    <script src="~/js/owl.carousel.min.js"></script>
+    <script src="~/js/main.js"></script>
+    <!--End Links-->
+
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
