@@ -10,29 +10,29 @@ namespace Artefy.Areas.ArtWork.Models
          
          [Required(ErrorMessage = "Please Select Art Image")]
          [DisplayName("Art Image")]
-        public string? Image { get; set; }
+        public string Image { get; set; }
 
         [Required(ErrorMessage = "Please Enter Art Title")]
         [DisplayName("Art Title")]
-        public string? Title { get; set; }
+        public string Title { get; set; }
 
         [Required(ErrorMessage = "Please Enter Art NO")]
         [DisplayName("Art NO")]
         public string? ArtNo { get; set; }
 
-         [Required(ErrorMessage = "Please Select User")]
-         [DisplayName("User")]
-         public int? UserID { get; set; }
+        [Required(ErrorMessage = "Please Select User")]
+        [DisplayName("User")]
+        public int UserID { get; set; }
 
 
         [Required(ErrorMessage = "Please Enter Art Height")]
         [DisplayName("Art Height")]
-        public decimal? Height { get; set; }
+        public decimal Height { get; set; }
 
 
         [Required(ErrorMessage = "Please Enter Art Width")]
         [DisplayName("Art Width")]
-        public decimal? Width { get; set; }
+        public decimal Width { get; set; }
 
          [Required(ErrorMessage = "Please Select Art Type")]
          [DisplayName("Art Type")]
@@ -42,7 +42,7 @@ namespace Artefy.Areas.ArtWork.Models
 
         [Required(ErrorMessage = "Enter Price")]
         [DisplayName("Price")]
-        public string? Price { get; set; }
+        public string Price { get; set; }
 
         public string? Description { get; set; }
          

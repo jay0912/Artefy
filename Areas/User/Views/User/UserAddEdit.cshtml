@@ -49,10 +49,9 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 control-label"><span class="text-danger">*</span>Profile Pic</label>
+                                <label class="col-md-3 control-label">Profile Pic</label>
                                 <div class="col-md-9">
                                     <input type="file" class="form-control" asp-for="File" placeholder="Select Profile Pic" />
-                                    <span asp-validation-for="ProfilePic" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -124,12 +123,12 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label"><span class="text-danger">*</span>Gender</label>
-                                <div class="col-md-9">
+                                <div class="col-md-9" asp-for="Gender">
                                     <label class="radio-inline">
-                                        <input type="radio" asp-for="Gender" name="optradio" value="MALE">MALE
+                                        <input type="radio" value="MALE" asp-for="Gender" name="MALE" id="Gender">MALE
                                     </label>
                                     <label class="radio-inline">
-                                        <input type="radio" asp-for="Gender" name="optradio" value="FEMALE">FEMALE
+                                        <input type="radio" value="FEMALE" asp-for="Gender" name="MALE" id="Gender">FEMALE
                                     </label>
                                     <span asp-validation-for="Gender" class="text-danger"></span>
                                 </div>

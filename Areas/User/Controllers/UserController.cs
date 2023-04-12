@@ -33,6 +33,23 @@ namespace Artefy.Areas.User.Controllers
         }
         #endregion
 
+        #region Customer SelectAll
+        public IActionResult Customer()
+        {
+            DataTable dt = dalSEC.Customer_SelectAll();
+            return View("CustomerList", dt);
+        }
+        #endregion
+
+        #region Artist SelectAll
+        public IActionResult Artist()
+        {
+            DataTable dt = dalSEC.Artist_SelectAll();
+            return View("ArtistList", dt);
+        }
+        #endregion
+
+
         #region Delete
         public IActionResult Delete(int UserID)
         {
@@ -58,8 +75,8 @@ namespace Artefy.Areas.User.Controllers
             foreach (DataRow dr in dtRole.Rows)
             {
                 RoleTypeDropDown dropdown = new RoleTypeDropDown();
-                dropdown.RoleTypeID = (int)dr["RoleTypeID"];
-                dropdown.RoleTypeName = (string)dr["RoleTypeName"];
+                dropdown.RoleTypeID = Convert.ToInt32(dr["RoleTypeID"]);
+                dropdown.RoleTypeName = dr["RoleTypeName"].ToString();
                 roletypedropdown.Add(dropdown);
             }
             ViewBag.RoleTypeList = roletypedropdown;
@@ -216,6 +233,70 @@ namespace Artefy.Areas.User.Controllers
             ViewBag.CityList = list;
             var vModel = list;
             return Json(vModel);
+        }
+        #endregion
+
+
+        #region SignUpAdd
+        public IActionResult SignUpAdd()
+        {
+            UserModel modelUser = new UserModel();
+
+            #region DropDown
+
+            #region RoleTypeDD
+
+
+            DataTable dtRole = dalSEC.RoleType_SelectByDropdownList();
+
+            List<RoleTypeDropDown> roletypedropdown = new List<RoleTypeDropDown>();
+
+            foreach (DataRow dr in dtRole.Rows)
+            {
+                RoleTypeDropDown dropdown = new RoleTypeDropDown();
+                dropdown.RoleTypeID = Convert.ToInt32(dr["RoleTypeID"]);
+                dropdown.RoleTypeName = dr["RoleTypeName"].ToString();
+                roletypedropdown.Add(dropdown);
+            }
+            ViewBag.RoleTypeList = roletypedropdown;
+            #endregion
+
+            #region CityDD
+
+            List<CityDropDown> citydropdown = new List<CityDropDown>();
+
+            ViewBag.CityList = citydropdown;
+            #endregion
+
+            #region StateDD
+
+            List<StateDropDown> statedropdown = new List<StateDropDown>();
+
+            ViewBag.StateList = statedropdown;
+            #endregion
+
+            #region CountryDD
+            DataTable dt1 = dalSEC.Country_SelectByDropdownList();
+
+            List<CountryDropDown> countrydropdown = new List<CountryDropDown>();
+
+            foreach (DataRow dr in dt1.Rows)
+            {
+                CountryDropDown dropdown = new CountryDropDown();
+                dropdown.CountryID = (int)dr["CountryID"];
+                dropdown.CountryName = (string)dr["CountryName"];
+                countrydropdown.Add(dropdown);
+            }
+            ViewBag.CountryList = countrydropdown;
+            #endregion
+
+            #endregion
+            
+            DropDownByCountry(modelUser.CountryID);
+            DropDownByState(modelUser.StateID);
+
+
+            return View("SignUpPage");
         }
         #endregion
 
