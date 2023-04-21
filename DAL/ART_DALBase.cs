@@ -146,7 +146,7 @@ namespace Artefy.DAL
                     modelArtWork.Width = Convert.ToDecimal(drow["Width"]);
                     modelArtWork.ArtTypeID = Convert.ToInt32(drow["ArtTypeID"]);
                     modelArtWork.ArtSubTypeID = Convert.ToInt32(drow["ArtSubTypeID"]);
-                    modelArtWork.Price = drow["Price"].ToString();
+                    modelArtWork.Price = Convert.ToDecimal(drow["Price"]);
                     modelArtWork.Description = drow["Description"].ToString();
                     modelArtWork.CreationDate = Convert.ToDateTime(drow["CreationDate"]);
                     modelArtWork.ModificationDate = Convert.ToDateTime(drow["ModificationDate"]);
@@ -481,5 +481,30 @@ namespace Artefy.DAL
         }
         #endregion 
 
+
+        #region ArtWork_ViewDetail
+        public DataTable ArtWork_ViewDetail(int? ArtWorkID)
+        {
+            try
+            {
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_ArtWork_ViewDetail");
+                sqlDB.AddInParameter(dbCMD, "ArtWorkID", SqlDbType.Int, ArtWorkID);
+                //sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, CV.UserID());
+
+                DataTable dt = new DataTable();
+
+                using (IDataReader dr = sqlDB.ExecuteReader(dbCMD))
+                {
+                    dt.Load(dr);
+                }
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        #endregion
     }
 }

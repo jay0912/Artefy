@@ -18,7 +18,7 @@ namespace Artefy.Areas.ArtWork.Models
 
         [Required(ErrorMessage = "Please Enter Art NO")]
         [DisplayName("Art NO")]
-        public string? ArtNo { get; set; }
+        public string ArtNo { get; set; }
 
         [Required(ErrorMessage = "Please Select User")]
         [DisplayName("User")]
@@ -42,7 +42,7 @@ namespace Artefy.Areas.ArtWork.Models
 
         [Required(ErrorMessage = "Enter Price")]
         [DisplayName("Price")]
-        public string Price { get; set; }
+        public decimal Price { get; set; }
 
         public string? Description { get; set; }
          
@@ -50,7 +50,7 @@ namespace Artefy.Areas.ArtWork.Models
          
          public DateTime ModificationDate { get; set; }
 
-        public IFormFile? File { get; set; }
+        public IFormFile File { get; set; }
 
     }
 

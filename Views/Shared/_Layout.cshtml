@@ -44,9 +44,9 @@
                 <div class="col-lg-6 col-md-6">
                     <nav class="header__menu mobile-menu">
                         <ul>
-                            <li class="active"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                            <li class=""><a asp-controller="Home" asp-action="Index">Home</a></li>
                             
-                            <li>
+                            @*<li>
                                 <a href="#">Add</a>
                                 <ul class="dropdown">
                                     <li><a href="#">ART</a></li>
@@ -56,9 +56,9 @@
                                     <li><a href="#">State</a></li>
                                     <li><a href="#">City</a></li>
                                 </ul>
-                            </li>
-                            <li><a href="#">ArtWork</a></li>
-                            <li><a href="#">Artist</a></li>
+                            </li>*@
+                            <li><a asp-controller="AllArts" asp-action="Index">ArtWork</a></li>
+                            <li><a asp-controller="AllArtist" asp-action="Index">Artist</a></li>
 
                         </ul>
                     </nav>

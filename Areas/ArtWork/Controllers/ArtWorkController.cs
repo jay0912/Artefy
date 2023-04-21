@@ -107,7 +107,7 @@ namespace Artefy.Areas.ArtWork.Controllers
             #endregion
 
             return View("ArtWorkAddEdit");
-        }
+        } 
         #endregion
 
         #region Insert
@@ -133,11 +133,12 @@ namespace Artefy.Areas.ArtWork.Controllers
             }
 
 
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 if (modelArtWork.ArtWorkID == null)
                 {
                     if (Convert.ToBoolean(dalART.ArtWorkInsert(modelArtWork)))
+
                         TempData["Msg"] = "Record Inserted Successfully";
 
                 }
@@ -146,7 +147,7 @@ namespace Artefy.Areas.ArtWork.Controllers
                     if (Convert.ToBoolean(dalART.ArtWorkUpdate(modelArtWork)))
                         return RedirectToAction("Index");
                 }
-            }
+            //}
 
             return RedirectToAction("Add");
 

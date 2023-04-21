@@ -132,13 +132,13 @@ namespace Artefy.DAL
             try
             {
                 SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
-                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_ArtWork_Insert");
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_User_Insert");
 
                 sqlDB.AddInParameter(dbCMD, "RoleTypeID", SqlDbType.Int, modelUser.RoleTypeID);
                 sqlDB.AddInParameter(dbCMD, "ProfilePic", SqlDbType.NVarChar, modelUser.ProfilePic);
                 sqlDB.AddInParameter(dbCMD, "UserName", SqlDbType.NVarChar, modelUser.UserName);
                 sqlDB.AddInParameter(dbCMD, "Password", SqlDbType.NVarChar, modelUser.Password);
-                sqlDB.AddInParameter(dbCMD, "BirthDate", SqlDbType.DateTime, DateTime.Now.ToString("yyyy-MM-dd"));
+                sqlDB.AddInParameter(dbCMD, "BirthDate", SqlDbType.DateTime, modelUser.BirthDate );
                 sqlDB.AddInParameter(dbCMD, "Address", SqlDbType.NVarChar, modelUser.Address);
                 sqlDB.AddInParameter(dbCMD, "CountryID", SqlDbType.Int, modelUser.CountryID);
                 sqlDB.AddInParameter(dbCMD, "StateID", SqlDbType.Int, modelUser.StateID);
@@ -167,7 +167,7 @@ namespace Artefy.DAL
             try
             {
                 SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
-                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_ArtWork_UpdateByPK");
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_User_UpdateByPK");
                 sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, modelUser.UserID);
                 sqlDB.AddInParameter(dbCMD, "RoleTypeID", SqlDbType.Int, modelUser.RoleTypeID);
                 sqlDB.AddInParameter(dbCMD, "ProfilePic", SqlDbType.NVarChar, modelUser.ProfilePic);
@@ -422,6 +422,32 @@ namespace Artefy.DAL
         }
         #endregion
 
+        #endregion
+
+
+        #region Artist_Detail
+        public DataTable Artist_Detail(int? UserID)
+        {
+            try
+            {
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_Artist_Detail");
+                sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, UserID);
+                //sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, CV.UserID());
+
+                DataTable dt = new DataTable();
+
+                using (IDataReader dr = sqlDB.ExecuteReader(dbCMD))
+                {
+                    dt.Load(dr);
+                }
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
         #endregion
 
     }

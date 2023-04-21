@@ -53,7 +53,7 @@ namespace Artefy.Areas.SEC_User.Controllers
             if (error != null)
             {
                 TempData["Error"] = error;
-                RedirectToAction("LoginPage");
+                RedirectToAction("Index", "SEC_User", new { area = "SEC_User" });
             }
             else
             {
