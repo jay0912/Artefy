@@ -7,9 +7,11 @@ using System.Data.SqlClient;
 using System.Data;
 using Artefy.Areas.Country.Models;
 using Artefy.Areas.RoleType.Models;
+using Artefy.BAL;
 
 namespace Artefy.Areas.User.Controllers
 {
+    [CheckAccess]   
     [Area("User")]
     [Route("User/[Controller]/[action]")]
     public class UserController : Controller
@@ -237,68 +239,6 @@ namespace Artefy.Areas.User.Controllers
         #endregion
 
 
-        #region SignUpAdd
-        public IActionResult SignUpAdd()
-        {
-            UserModel modelUser = new UserModel();
-
-            #region DropDown
-
-            #region RoleTypeDD
-
-
-            DataTable dtRole = dalSEC.RoleType_SelectByDropdownList();
-
-            List<RoleTypeDropDown> roletypedropdown = new List<RoleTypeDropDown>();
-
-            foreach (DataRow dr in dtRole.Rows)
-            {
-                RoleTypeDropDown dropdown = new RoleTypeDropDown();
-                dropdown.RoleTypeID = Convert.ToInt32(dr["RoleTypeID"]);
-                dropdown.RoleTypeName = dr["RoleTypeName"].ToString();
-                roletypedropdown.Add(dropdown);
-            }
-            ViewBag.RoleTypeList = roletypedropdown;
-            #endregion
-
-            #region CityDD
-
-            List<CityDropDown> citydropdown = new List<CityDropDown>();
-
-            ViewBag.CityList = citydropdown;
-            #endregion
-
-            #region StateDD
-
-            List<StateDropDown> statedropdown = new List<StateDropDown>();
-
-            ViewBag.StateList = statedropdown;
-            #endregion
-
-            #region CountryDD
-            DataTable dt1 = dalSEC.Country_SelectByDropdownList();
-
-            List<CountryDropDown> countrydropdown = new List<CountryDropDown>();
-
-            foreach (DataRow dr in dt1.Rows)
-            {
-                CountryDropDown dropdown = new CountryDropDown();
-                dropdown.CountryID = (int)dr["CountryID"];
-                dropdown.CountryName = (string)dr["CountryName"];
-                countrydropdown.Add(dropdown);
-            }
-            ViewBag.CountryList = countrydropdown;
-            #endregion
-
-            #endregion
-            
-            DropDownByCountry(modelUser.CountryID);
-            DropDownByState(modelUser.StateID);
-
-
-            return View("SignUpPage");
-        }
-        #endregion
 
     }
 }

@@ -1,11 +1,13 @@
 ﻿using Artefy.Areas.Country.Models;
 using Artefy.Areas.State.Models;
+using Artefy.BAL;
 using Artefy.DAL;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 
 namespace Artefy.Areas.State.Controllers
 {
+    [CheckAccess]
     [Area("State")]
     [Route("State/[Controller]/[action]")]
     public class StateController : Controller

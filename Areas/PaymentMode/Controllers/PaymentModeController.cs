@@ -1,10 +1,12 @@
 ﻿using Artefy.Areas.PaymentMode.Models;
+using Artefy.BAL;
 using Artefy.DAL;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 
 namespace Artefy.Areas.PaymentMode.Controllers
 {
+    [CheckAccess]
     [Area("PaymentMode")]
     [Route("PaymentMode/[Controller]/[action]")]
     public class PaymentModeController : Controller

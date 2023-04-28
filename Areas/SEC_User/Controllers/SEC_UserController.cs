@@ -53,7 +53,8 @@ namespace Artefy.Areas.SEC_User.Controllers
             if (error != null)
             {
                 TempData["Error"] = error;
-                RedirectToAction("Index", "SEC_User", new { area = "SEC_User" });
+                return RedirectToAction("Index", "SEC_User", new { area = "SEC_User" });
+                //RedirectToAction("Index", "SEC_User", new { area = "SEC_User" });
             }
             else
             {
@@ -86,7 +87,8 @@ namespace Artefy.Areas.SEC_User.Controllers
                 else
                 {
                     TempData["Error"] = "User Name or Password is inviald!";
-                    return RedirectToAction("LoginPage");
+                    return RedirectToAction("Index", "SEC_User", new { area = "SEC_User" });
+                    //return RedirectToAction("LoginPage");
                 }
 
                 if (HttpContext.Session.GetString("UserName") != null && HttpContext.Session.GetString("Password") != null)
@@ -170,6 +172,119 @@ namespace Artefy.Areas.SEC_User.Controllers
             return View("SignUpPage");
         }
 
+        #region Add
+        public IActionResult Add(int? UserID)
+        {
+
+            #region DropDown
+
+            #region RoleTypeDD
+
+
+            DataTable dtRole = dalSEC.RoleType_SelectByDropdownList();
+
+            List<RoleTypeDropDown> roletypedropdown = new List<RoleTypeDropDown>();
+
+            foreach (DataRow dr in dtRole.Rows)
+            {
+                RoleTypeDropDown dropdown = new RoleTypeDropDown();
+                dropdown.RoleTypeID = Convert.ToInt32(dr["RoleTypeID"]);
+                dropdown.RoleTypeName = dr["RoleTypeName"].ToString();
+                roletypedropdown.Add(dropdown);
+            }
+            ViewBag.RoleTypeList = roletypedropdown;
+            #endregion
+
+            #region CityDD
+
+            List<CityDropDown> citydropdown = new List<CityDropDown>();
+
+            ViewBag.CityList = citydropdown;
+            #endregion
+
+            #region StateDD
+
+            List<StateDropDown> statedropdown = new List<StateDropDown>();
+
+            ViewBag.StateList = statedropdown;
+            #endregion
+
+            #region CountryDD
+            DataTable dt1 = dalSEC.Country_SelectByDropdownList();
+
+            List<CountryDropDown> countrydropdown = new List<CountryDropDown>();
+
+            foreach (DataRow dr in dt1.Rows)
+            {
+                CountryDropDown dropdown = new CountryDropDown();
+                dropdown.CountryID = (int)dr["CountryID"];
+                dropdown.CountryName = (string)dr["CountryName"];
+                countrydropdown.Add(dropdown);
+            }
+            ViewBag.CountryList = countrydropdown;
+            #endregion
+
+            #endregion
+
+            #region Record Select by Pk
+            if (UserID != null)
+            {
+
+                UserModel modelUser = dalSEC.UserSelectByPk((int)UserID);
+                DropDownByCountry(modelUser.CountryID);
+                DropDownByState(modelUser.StateID);
+                return View("SignUpPage", modelUser);
+
+            }
+            #endregion
+
+
+            return View("SignUpPage");
+        }
+        #endregion
+
+        #region Insert
+        [HttpPost]
+        public IActionResult Save(UserModel modelUser)
+        {
+
+            if (modelUser.File != null)
+            {
+                string FilePath = "wwwroot\\ProfilePic";
+                string path = Path.Combine(Directory.GetCurrentDirectory(), FilePath);
+
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+
+                string fileNameWithPath = Path.Combine(path, modelUser.File.FileName);
+                modelUser.ProfilePic = "~" + FilePath.Replace("wwwroot\\", "/") + "/" + modelUser.File.FileName;
+
+                using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
+                {
+                    modelUser.File.CopyTo(stream);
+                }
+            }
+
+
+            if (ModelState.IsValid)
+            {
+                if (modelUser.UserID == null)
+                {
+                    if (Convert.ToBoolean(dalSEC.UserInsert(modelUser)))
+                        TempData["Msg"] = "Account Created";
+
+                }
+                else
+                {
+                    if (Convert.ToBoolean(dalSEC.UserUpdate(modelUser)))
+                        return RedirectToAction("Index");
+                }
+            }
+
+            return RedirectToAction("Add");
+
+        }
+        #endregion
 
         #region DropDownByCountry
         public IActionResult DropDownByCountry(int? CountryID)
@@ -234,6 +349,69 @@ namespace Artefy.Areas.SEC_User.Controllers
         }
         #endregion
 
+
+        #region SignUpAdd
+        public IActionResult SignUpAdd()
+        {
+            UserModel modelUser = new UserModel();
+
+            #region DropDown
+
+            #region RoleTypeDD
+
+
+            DataTable dtRole = dalSEC.RoleType_SelectByDropdownList();
+
+            List<RoleTypeDropDown> roletypedropdown = new List<RoleTypeDropDown>();
+
+            foreach (DataRow dr in dtRole.Rows)
+            {
+                RoleTypeDropDown dropdown = new RoleTypeDropDown();
+                dropdown.RoleTypeID = Convert.ToInt32(dr["RoleTypeID"]);
+                dropdown.RoleTypeName = dr["RoleTypeName"].ToString();
+                roletypedropdown.Add(dropdown);
+            }
+            ViewBag.RoleTypeList = roletypedropdown;
+            #endregion
+
+            #region CityDD
+
+            List<CityDropDown> citydropdown = new List<CityDropDown>();
+
+            ViewBag.CityList = citydropdown;
+            #endregion
+
+            #region StateDD
+
+            List<StateDropDown> statedropdown = new List<StateDropDown>();
+
+            ViewBag.StateList = statedropdown;
+            #endregion
+
+            #region CountryDD
+            DataTable dt1 = dalSEC.Country_SelectByDropdownList();
+
+            List<CountryDropDown> countrydropdown = new List<CountryDropDown>();
+
+            foreach (DataRow dr in dt1.Rows)
+            {
+                CountryDropDown dropdown = new CountryDropDown();
+                dropdown.CountryID = (int)dr["CountryID"];
+                dropdown.CountryName = (string)dr["CountryName"];
+                countrydropdown.Add(dropdown);
+            }
+            ViewBag.CountryList = countrydropdown;
+            #endregion
+
+            #endregion
+
+            DropDownByCountry(modelUser.CountryID);
+            DropDownByState(modelUser.StateID);
+
+
+            return View("SignUpPage");
+        }
+        #endregion
 
     }
 }

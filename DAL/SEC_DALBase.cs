@@ -182,8 +182,7 @@ namespace Artefy.DAL
                 sqlDB.AddInParameter(dbCMD, "Email", SqlDbType.NVarChar, modelUser.Email);
                 sqlDB.AddInParameter(dbCMD, "Gender", SqlDbType.NVarChar, modelUser.Gender);
                 sqlDB.AddInParameter(dbCMD, "Description", SqlDbType.NVarChar, modelUser.Description);
-                sqlDB.AddInParameter(dbCMD, "CreationDate", SqlDbType.DateTime, DateTime.Now.ToString("yyyy-MM-dd"));
-                sqlDB.AddInParameter(dbCMD, "ModificationDate", SqlDbType.DateTime, DateTime.Now.ToString("yyyy-MM-dd"));
+                //sqlDB.AddInParameter(dbCMD, "ModificationDate", SqlDbType.DateTime, modelUser.ModificationDate);
                 //sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, CV.UserID());
 
                 int vReturnValue = sqlDB.ExecuteNonQuery(dbCMD);
@@ -423,7 +422,6 @@ namespace Artefy.DAL
         #endregion
 
         #endregion
-
 
         #region Artist_Detail
         public DataTable Artist_Detail(int? UserID)

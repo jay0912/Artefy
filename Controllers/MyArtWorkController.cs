@@ -1,25 +1,21 @@
-﻿using Artefy.Areas.ArtWork.Models;
-using Artefy.Areas.ArtSubType.Models;
+﻿using Artefy.Areas.ArtSubType.Models;
+using Artefy.Areas.ArtWork.Models;
+using Artefy.Areas.User.Models;
 using Artefy.DAL;
 using Microsoft.AspNetCore.Mvc;
+using static Artefy.Areas.ArtType.Models.ArtTypeModel;
 using System.Data.SqlClient;
 using System.Data;
-using static Artefy.Areas.ArtType.Models.ArtTypeModel;
-using Artefy.Areas.RoleType.Models;
-using Artefy.Areas.User.Models;
 using Artefy.BAL;
 
-namespace Artefy.Areas.ArtWork.Controllers
+namespace Artefy.Controllers
 {
     [CheckAccess]
-    [Area("ArtWork")]
-    [Route("ArtWork/[Controller]/[action]")]
-    public class ArtWorkController : Controller
+    public class MyArtWorkController : Controller
     {
-
         private IConfiguration Configuration;
 
-        public ArtWorkController(IConfiguration _configuration)
+        public MyArtWorkController(IConfiguration _configuration)
         {
             Configuration = _configuration;
         }
@@ -31,8 +27,8 @@ namespace Artefy.Areas.ArtWork.Controllers
         #region SelectAll
         public IActionResult Index()
         {
-            DataTable dt = dalART.ArtWork_SelectAll();
-            return View("ArtWorkList", dt);
+            DataTable dt = dalART.MyWork_SelectAll();
+            return View("MyArtWorkList", dt);
         }
         #endregion
 
@@ -40,7 +36,7 @@ namespace Artefy.Areas.ArtWork.Controllers
         public IActionResult Delete(int ArtWorkID)
         {
 
-            if (Convert.ToBoolean(dalART.ArtWork_Delete(ArtWorkID)))
+            if (Convert.ToBoolean(dalART.MyWork_Delete(ArtWorkID)))
                 return RedirectToAction("Index");
             return View("Index");
         }
@@ -52,7 +48,7 @@ namespace Artefy.Areas.ArtWork.Controllers
 
             #region DropDown
 
-            #region UserDD
+            #region ArtistDD
 
 
             DataTable dtUser = dalART.User_SelectByDropdownList();
@@ -101,15 +97,15 @@ namespace Artefy.Areas.ArtWork.Controllers
             if (ArtWorkID != null)
             {
 
-                ArtWorkModel modelArtWork = dalART.ArtWorkSelectByPk((int)ArtWorkID);
+                ArtWorkModel modelArtWork = dalART.MyWorkSelectByPk((int)ArtWorkID);
                 DropDownByArtType(modelArtWork.ArtTypeID);
-                return View("ArtWorkAddEdit", modelArtWork);
+                return View("MyArtWorkAddEdit", modelArtWork);
 
             }
             #endregion
 
-            return View("ArtWorkAddEdit");
-        } 
+            return View("MyArtWorkAddEdit");
+        }
         #endregion
 
         #region Insert
@@ -137,18 +133,18 @@ namespace Artefy.Areas.ArtWork.Controllers
 
             //if (ModelState.IsValid)
             //{
-                if (modelArtWork.ArtWorkID == null)
-                {
-                    if (Convert.ToBoolean(dalART.ArtWorkInsert(modelArtWork)))
+            if (modelArtWork.ArtWorkID == null)
+            {
+                if (Convert.ToBoolean(dalART.MyWorkInsert(modelArtWork)))
 
-                        TempData["Msg"] = "Record Inserted Successfully";
+                    TempData["Msg"] = "Record Inserted Successfully";
 
-                }
-                else
-                {
-                    if (Convert.ToBoolean(dalART.ArtWorkUpdate(modelArtWork)))
-                        return RedirectToAction("Index");
-                }
+            }
+            else
+            {
+                if (Convert.ToBoolean(dalART.MyWorkUpdate(modelArtWork)))
+                    return RedirectToAction("Index");
+            }
             //}
 
             return RedirectToAction("Add");
@@ -186,6 +182,6 @@ namespace Artefy.Areas.ArtWork.Controllers
             return Json(vModel);
         }
         #endregion
-
     }
 }
+ 

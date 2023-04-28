@@ -1,10 +1,12 @@
 ﻿using Artefy.Areas.RoleType.Models;
+using Artefy.BAL;
 using Artefy.DAL;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 
 namespace Artefy.Areas.RoleType.Controllers
 {
+    [CheckAccess]
     [Area("RoleType")]
     [Route("RoleType/[Controller]/[action]")]
     public class RoleTypeController : Controller

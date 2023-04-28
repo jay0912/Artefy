@@ -1,11 +1,12 @@
 ﻿using Artefy.Areas.ArtType.Models;
-using Artefy.Areas.PaymentMode.Models;
+using Artefy.BAL;
 using Artefy.DAL;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 
 namespace Artefy.Areas.ArtType.Controllers
 {
+    [CheckAccess]
     [Area("ArtType")]
     [Route("ArtType/[Controller]/[action]")]
     public class ArtTypeController : Controller

@@ -41,7 +41,7 @@
                         <!-- <a href="./index.html"><img src="img/logo.png" alt=""></a> -->
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-6">
+                <div class="col-lg-6 col-md-6 mt-2">
                     <nav class="header__menu mobile-menu">
                         <ul>
                             <li class=""><a asp-controller="Home" asp-action="Index">Home</a></li>
@@ -57,6 +57,12 @@
                                     <li><a href="#">City</a></li>
                                 </ul>
                             </li>*@
+                            @if (CV.RoleTypeID() == "2")
+                            {
+                                <li><a asp-controller="MyArtWork" asp-action="Index">My Art</a></li>
+                            }
+                            @*<li><a asp-controller="AllArts" asp-action="Index">ArtWork</a></li>
+                            <li><a asp-controller="AllArtist" asp-action="Index">Artist</a></li>*@
                             <li><a asp-controller="AllArts" asp-action="Index">ArtWork</a></li>
                             <li><a asp-controller="AllArtist" asp-action="Index">Artist</a></li>
 
@@ -69,11 +75,29 @@
                         @*<a href="#"><img src="img/icon/heart.png" alt=""></a>*@
                         <a href="#"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
                         <div class="price">$0.00</div>
-                        <a class="btn btn-light" asp-area="Admin" asp-controller="Admin" asp-action="Index">Login <i class="fa fa-user-circle"></i></a>
+                        @if(CV.UserID() == null)
+                        {
+                            <a class="btn btn-light" asp-area="Admin" asp-controller="Admin" asp-action="Index">Login <i class="fa fa-user-circle"></i></a>
+                        }
+                        
                         @if(CV.UserID() != null && CV.RoleTypeID() != "1")
                         {
-                            <a class="btn btn-dark" href="@Url.Action("Logout", "SEC_User", new {Area = "SEC_User" })">
-                                    <i class="icon-key"></i> Log Out
+                            @*<div class="dropdown">
+                                <button class="btn btn-primary btn-floating dropdown-toggle hidden-arrow bg-dark"
+                                    type="button"
+                                    id="dropdownMenuButton2"
+                                    data-mdb-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <i class="fa fa-user-circle fa-lg"></i>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                    <li><a class="dropdown-item" href="#"> <i class="fas fa-user-alt pe-2"></i>My Profile</a></li>
+                                    <li><a class="dropdown-item" href="#"> <i class="fas fa-cog pe-2"></i>Settings</a></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("Logout", "SEC_User", new {Area = "SEC_User" })"> <i class="fas fa-door-open pe-2"></i>Logout</a></li>
+                                </ul>
+                            </div>*@
+                            <a class="btn btn-light text-dark" href="@Url.Action("Logout", "SEC_User", new {Area = "SEC_User" })">
+                                Log Out <i class='fa fa-sign-out'></i>
                             </a>
                         }
                     </div>

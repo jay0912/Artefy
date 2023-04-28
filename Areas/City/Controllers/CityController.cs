@@ -1,6 +1,7 @@
 ﻿using Artefy.Areas.City.Models;
 using Artefy.Areas.Country.Models;
 using Artefy.Areas.State.Models;
+using Artefy.BAL;
 using Artefy.DAL;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
@@ -8,6 +9,7 @@ using System.Data.SqlClient;
 
 namespace Artefy.Areas.City.Controllers
 {
+    [CheckAccess]
     [Area("City")]
     [Route("City/[Controller]/[action]")]
     public class CityController : Controller

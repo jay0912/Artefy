@@ -4,6 +4,7 @@ using System.Data;
 using Artefy.Areas.ArtType.Models;
 using Artefy.Areas.ArtSubType.Models;
 using Artefy.Areas.ArtWork.Models;
+using Artefy.BAL;
 
 namespace Artefy.DAL
 {
@@ -105,8 +106,8 @@ namespace Artefy.DAL
                 sqlDB.AddInParameter(dbCMD, "ArtSubTypeID", SqlDbType.Int, modelArtWork.ArtSubTypeID);
                 sqlDB.AddInParameter(dbCMD, "Price", SqlDbType.NVarChar, modelArtWork.Price);
                 sqlDB.AddInParameter(dbCMD, "Description", SqlDbType.NVarChar, modelArtWork.Description);
-                sqlDB.AddInParameter(dbCMD, "CreationDate", SqlDbType.DateTime, DateTime.Now.ToString("yyyy-MM-dd"));
-                sqlDB.AddInParameter(dbCMD, "ModificationDate", SqlDbType.DateTime, DateTime.Now.ToString("yyyy-MM-dd"));
+                //sqlDB.AddInParameter(dbCMD, "CreationDate", SqlDbType.DateTime, DateTime.Now.ToString("yyyy-MM-dd"));
+                //sqlDB.AddInParameter(dbCMD, "ModificationDate", SqlDbType.DateTime, DateTime.Now.ToString("yyyy-MM-dd"));
                 //sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, CV.UserID());
 
                 int vReturnValue = sqlDB.ExecuteNonQuery(dbCMD);
@@ -463,7 +464,7 @@ namespace Artefy.DAL
             try
             {
                 SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
-                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_User_SelectForDropDown");
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_Artist_SelectForDropDown");
                 //sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, CV.UserID());
 
                 DataTable dt = new DataTable();
@@ -505,6 +506,161 @@ namespace Artefy.DAL
                 return null;
             }
         }
+        #endregion
+
+
+        #region MyArt
+
+        #region MyWork_SelectAll
+        public DataTable MyWork_SelectAll()
+        {
+            try
+            {
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_MyWork_SelectAll");
+                sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, CV.UserID());
+
+                DataTable dt = new DataTable();
+
+                using (IDataReader dr = sqlDB.ExecuteReader(dbCMD))
+                {
+                    dt.Load(dr);
+                }
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region MyWork_Delete
+        public bool? MyWork_Delete(int ArtWorkID)
+        {
+            try
+            {
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_ArtWork_DeleteByPK");
+                sqlDB.AddInParameter(dbCMD, "ArtWorkID", SqlDbType.Int, ArtWorkID);
+
+                int vReturnValue = sqlDB.ExecuteNonQuery(dbCMD);
+                return (vReturnValue == -1 ? false : true);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region MyWork_Insert
+        public bool? MyWorkInsert(ArtWorkModel modelArtWork)
+        {
+            try
+            {
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_ArtWork_Insert");
+
+                sqlDB.AddInParameter(dbCMD, "Image", SqlDbType.NVarChar, modelArtWork.Image);
+                sqlDB.AddInParameter(dbCMD, "Title", SqlDbType.NVarChar, modelArtWork.Title);
+                sqlDB.AddInParameter(dbCMD, "ArtNo", SqlDbType.NVarChar, modelArtWork.ArtNo);
+                //sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, modelArtWork.UserID);
+                sqlDB.AddInParameter(dbCMD, "Height", SqlDbType.NVarChar, modelArtWork.Height);
+                sqlDB.AddInParameter(dbCMD, "Width", SqlDbType.NVarChar, modelArtWork.Width);
+                sqlDB.AddInParameter(dbCMD, "ArtTypeID", SqlDbType.Int, modelArtWork.ArtTypeID);
+                sqlDB.AddInParameter(dbCMD, "ArtSubTypeID", SqlDbType.Int, modelArtWork.ArtSubTypeID);
+                sqlDB.AddInParameter(dbCMD, "Price", SqlDbType.NVarChar, modelArtWork.Price);
+                sqlDB.AddInParameter(dbCMD, "Description", SqlDbType.NVarChar, modelArtWork.Description);
+                sqlDB.AddInParameter(dbCMD, "CreationDate", SqlDbType.DateTime, DateTime.Now.ToString("yyyy-MM-dd"));
+                sqlDB.AddInParameter(dbCMD, "ModificationDate", SqlDbType.DateTime, DateTime.Now.ToString("yyyy-MM-dd"));
+                sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, CV.UserID());
+
+                int vReturnValue = sqlDB.ExecuteNonQuery(dbCMD);
+                return (vReturnValue == -1 ? false : true);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region MyWork_Update
+        public bool? MyWorkUpdate(ArtWorkModel modelArtWork)
+        {
+            try
+            {
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_MyWork_UpdateByPK");
+                sqlDB.AddInParameter(dbCMD, "ArtWorkID", SqlDbType.Int, modelArtWork.ArtWorkID);
+                sqlDB.AddInParameter(dbCMD, "Image", SqlDbType.NVarChar, modelArtWork.Image);
+                sqlDB.AddInParameter(dbCMD, "Title", SqlDbType.NVarChar, modelArtWork.Title);
+                sqlDB.AddInParameter(dbCMD, "ArtNo", SqlDbType.NVarChar, modelArtWork.ArtNo);
+                //sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, modelArtWork.UserID);
+                sqlDB.AddInParameter(dbCMD, "Height", SqlDbType.NVarChar, modelArtWork.Height);
+                sqlDB.AddInParameter(dbCMD, "Width", SqlDbType.NVarChar, modelArtWork.Width);
+                sqlDB.AddInParameter(dbCMD, "ArtTypeID", SqlDbType.Int, modelArtWork.ArtTypeID);
+                sqlDB.AddInParameter(dbCMD, "ArtSubTypeID", SqlDbType.Int, modelArtWork.ArtSubTypeID);
+                sqlDB.AddInParameter(dbCMD, "Price", SqlDbType.NVarChar, modelArtWork.Price);
+                sqlDB.AddInParameter(dbCMD, "Description", SqlDbType.NVarChar, modelArtWork.Description);
+                sqlDB.AddInParameter(dbCMD, "CreationDate", SqlDbType.DateTime, DateTime.Now.ToString("yyyy-MM-dd"));
+                sqlDB.AddInParameter(dbCMD, "ModificationDate", SqlDbType.DateTime, DateTime.Now.ToString("yyyy-MM-dd"));
+                sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, CV.UserID());
+
+                int vReturnValue = sqlDB.ExecuteNonQuery(dbCMD);
+                return (vReturnValue == -1 ? false : true);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region MyWork_SelectByPK
+        public ArtWorkModel MyWorkSelectByPk(int? ArtWorkID)
+        {
+            try
+            {
+                SqlDatabase sqlDB = new SqlDatabase(myConnectionString);
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_MyWork_SelectByPK");
+                sqlDB.AddInParameter(dbCMD, "ArtWorkID", SqlDbType.Int, ArtWorkID);
+                sqlDB.AddInParameter(dbCMD, "UserID", SqlDbType.Int, CV.UserID());
+
+                DataTable dt = new DataTable();
+                using (IDataReader dr = sqlDB.ExecuteReader(dbCMD))
+                {
+                    dt.Load(dr);
+                }
+                ArtWorkModel modelArtWork = new ArtWorkModel();
+
+                foreach (DataRow drow in dt.Rows)
+                {
+                    modelArtWork.Image = drow["Image"].ToString();
+                    modelArtWork.Title = drow["Title"].ToString();
+                    modelArtWork.ArtNo = drow["ArtNo"].ToString();
+                    modelArtWork.UserID = Convert.ToInt32(drow["UserID"]);
+                    modelArtWork.Height = Convert.ToDecimal(drow["Height"]);
+                    modelArtWork.Width = Convert.ToDecimal(drow["Width"]);
+                    modelArtWork.ArtTypeID = Convert.ToInt32(drow["ArtTypeID"]);
+                    modelArtWork.ArtSubTypeID = Convert.ToInt32(drow["ArtSubTypeID"]);
+                    modelArtWork.Price = Convert.ToDecimal(drow["Price"]);
+                    modelArtWork.Description = drow["Description"].ToString();
+                    modelArtWork.CreationDate = Convert.ToDateTime(drow["CreationDate"]);
+                    modelArtWork.ModificationDate = Convert.ToDateTime(drow["ModificationDate"]);
+
+                }
+
+                return modelArtWork;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        #endregion
+
         #endregion
     }
 }

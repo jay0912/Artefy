@@ -1,4 +1,5 @@
 ﻿using Artefy.Areas.ArtSubType.Models;
+using Artefy.BAL;
 using Artefy.DAL;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
@@ -6,6 +7,7 @@ using static Artefy.Areas.ArtType.Models.ArtTypeModel;
 
 namespace Artefy.Areas.ArtSubType.Controllers
 {
+    [CheckAccess]
     [Area("ArtSubType")]
     [Route("ArtSubType/[Controller]/[action]")]
     public class ArtSubTypeController : Controller

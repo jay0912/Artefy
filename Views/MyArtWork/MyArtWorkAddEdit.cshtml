@@ -1,0 +1,161 @@
+﻿@{
+    ViewData["Title"] = "Add Art";
+}
+
+@model Artefy.Areas.ArtWork.Models.ArtWorkModel
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewData["Title"] - Add Art</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
+</head>
+<body>
+
+    <section class="h-100 h-custom" style="background-color: #8fc4b7;">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-lg-8 col-xl-6">
+                    <div class="card rounded-3">
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp"
+                             class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;"
+                             alt="Sample photo">
+                        <div class="card-body p-4 p-md-5">
+                            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Art Upload</h3>
+                            <h4 class="font-green-sharp text-center">@TempData["Msg"]</h4>
+                            <form class="px-md-2" method="post" asp-controller="MyArtWork" asp-action="Save" enctype="multipart/form-data">
+
+                                @Html.HiddenFor(x=>x.ArtWorkID)
+                                @Html.HiddenFor(x=>x.Image)
+
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="form3Example1q">Image</label>
+                                    <input type="file" asp-for="File" class="form-control" />
+                                    <span asp-validation-for="Image" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="form3Example1q"><span class="text-danger">*</span>Title</label>
+                                    <input type="text" asp-for="Title" class="form-control" />
+                                    <span asp-validation-for="Title" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="form3Example1q">About Art</label>
+                                    <textarea rows="4" cols="70" class="form-control" asp-for="Description" placeholder="Enter Description About Art"></textarea>
+                                </div>
+
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="form3Example1q"><span class="text-danger">*</span>Art No</label>
+                                    <input type="text" asp-for="ArtNo" class="form-control" />
+                                    <span asp-validation-for="ArtNo" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="form3Example1q"><span class="text-danger">*</span>Heigth</label>
+                                    <input type="text" asp-for="Height" class="form-control" />
+                                    <span asp-validation-for="Height" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="form3Example1q"><span class="text-danger">*</span>Width</label>
+                                    <input type="text" asp-for="Width" class="form-control" />
+                                    <span asp-validation-for="Width" class="text-danger"></span>
+                                </div>
+
+                                
+
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="form3Example1q"><span class="text-danger">*</span>Type</label>
+                                    <select class="form-control" asp-for="ArtTypeID" asp-items="@(new SelectList(ViewBag.ArtTypeList,"ArtTypeID","ArtTypeName"))" onchange="fnonArtSubTypeChange();">
+                                        <option value="">Select Art Type</option>
+                                    </select>
+                                    <span asp-validation-for="ArtTypeID" class="text-danger"></span>
+                                </div>
+
+
+                                <div class="form-outline mb-4" >
+                                    <label class="form-label" for="form3Example1q">SubType</label>
+                                    <select class="form-control" asp-for="ArtSubTypeID" asp-items="@(new SelectList(ViewBag.ArtSubTypeList,"ArtSubTypeID","ArtSubTypeName"))">
+                                        <option value="">Select Art SubType</option>
+                                    </select>
+                                </div>
+
+                              
+                                    <div class="col-md-6 mb-4">
+
+                                        <div class="form-outline">
+                                            <label for="form3Example1q" class="form-label"><span class="text-danger">*</span>Price</label>
+                                            <input type="text" asp-for="Price" class="form-control" />
+                                            <span asp-validation-for="Price" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                <div class="row">
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <a asp-controller="MyArtWork" asp-action="Index"><input type="submit" class="btn btn-success btn-lg mb-5" value="Save" /></a>
+                                        <a asp-controller="MyArtWork" asp-action="Index"><input type="button" class="btn btn-danger btn-lg mb-5" value="Cancel" /></a>
+                                    </div>
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+   
+    <script>
+        function() {
+            var ArtTypeID = $("#ArtTypeID").val();
+
+            if (ArtTypeID !== "") {
+                $("#ArtSubTypeID").empty();
+                $("#ArtSubTypeID").append($("<option></option>").val("").html("Select ArtSubType"));
+                $.ajax(
+                    {
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        url: "@Url.Action("DropDownByArtType", "MyArtWork")" + "?ArtTypeID=" + ArtTypeID,
+                        date: {},
+                        dataType: "json",
+                        success: function (Result) {
+
+                            $.each(Result,
+                                function (key, value) {
+                                    $("#ArtSubTypeID").append($("<option></option>").val(value.artSubTypeID).html(value.artSubTypeName));
+                                });
+                        },
+                        error: function (r) {
+                            alert("Error while loading DropDwon.");
+                        }
+                    });
+            }
+            else {
+                $("#ArtSubTypeID").empty();
+                $("#ArtSubTypeID").append($("<option></option>").val("").html("Select ArtSubType"));
+            }
+        }
+    </script>
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+
+</body>
+</html>
+
+
+
